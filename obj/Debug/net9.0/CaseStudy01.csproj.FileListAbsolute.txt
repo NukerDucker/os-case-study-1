@@ -1,0 +1,17 @@
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\bin\Debug\net9.0\CaseStudy01.exe
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\bin\Debug\net9.0\CaseStudy01.deps.json
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\bin\Debug\net9.0\CaseStudy01.runtimeconfig.json
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\bin\Debug\net9.0\CaseStudy01.dll
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\bin\Debug\net9.0\CaseStudy01.pdb
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\bin\Debug\net9.0\CalculatingFunctions.dll
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\CaseStudy01.csproj.AssemblyReference.cache
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\CaseStudy01.GeneratedMSBuildEditorConfig.editorconfig
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\CaseStudy01.AssemblyInfoInputs.cache
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\CaseStudy01.AssemblyInfo.cs
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\CaseStudy01.csproj.CoreCompileInputs.cache
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\CaseStud.32D452DE.Up2Date
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\CaseStudy01.dll
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\refint\CaseStudy01.dll
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\CaseStudy01.pdb
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\CaseStudy01.genruntimeconfig.cache
+D:\Dev\CSharp\OperatingSystems\CaseStudy01\obj\Debug\net9.0\ref\CaseStudy01.dll
