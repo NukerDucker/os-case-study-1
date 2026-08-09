@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -10,6 +10,10 @@
   <Reference Include="CalculatingFunctions">
     <HintPath>.\DLL\CalculatingFunctions.dll</HintPath>
   </Reference>
+</ItemGroup>
+<ItemGroup>
+  <!-- Ref1: naive/race-condition reference — excluded from build, rename to Program.cs to swap in -->
+  <Compile Remove="Program.Ref1.cs" />
 </ItemGroup>
 
 </Project>
