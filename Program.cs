@@ -2,6 +2,7 @@
 // Updated: 2026-08-09
 using System;
 using System.IO;
+using System.Linq;
 using CalculatingFunctions;
 using System.Threading;
 using System.Diagnostics;
@@ -101,16 +102,14 @@ class Program
             workers[i] = new Thread(() => workerResults[wi] = WorkerFunc(wi, workerCount));
         }
 
-        Stopwatch sw = new Stopwatch();
-        sw.Start();
+        var sw = Stopwatch.StartNew();
 
         for (int i = 0; i < workerCount; i++) workers[i].Start();
         for (int i = 0; i < workerCount; i++) workers[i].Join();
 
         sw.Stop();
 
-        decimal result = 0m;
-        for (int i = 0; i < workerCount; i++) result += workerResults[i];
+        decimal result = workerResults.Sum();
 
         Console.WriteLine($"Calculation finished in {sw.ElapsedMilliseconds} ms. Result: {result:F2}");
         if (result != expected_result)
