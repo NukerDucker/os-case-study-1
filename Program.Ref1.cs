@@ -67,9 +67,9 @@ class Program
 
         sw.Stop();
 
-        Console.WriteLine($"Finished in {sw.ElapsedMilliseconds} ms. Result: {result:F2}");
+        Console.WriteLine($"Finished in {sw.ElapsedMilliseconds} ms. Result: {result:F8}");
         if (result != expected_result)
-            Console.WriteLine($"WRONG result (expected {expected_result:F2}) — race condition confirmed.");
+            Console.WriteLine($"WRONG result (expected {expected_result:F8}) — race condition confirmed.");
         else
             Console.WriteLine("Result OK (got lucky — run again, it will differ).");
     }

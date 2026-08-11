@@ -111,9 +111,9 @@ class Program
 
         decimal result = workerResults.Sum();
 
-        Console.WriteLine($"Calculation finished in {sw.ElapsedMilliseconds} ms. Result: {result:F2}");
+        Console.WriteLine($"Calculation finished in {sw.ElapsedMilliseconds} ms. Result: {result:F8}");
         if (result != expected_result)
-            Console.WriteLine($"Invalid result, expected {expected_result:F2}");
+            Console.WriteLine($"Invalid result, expected {expected_result:F8}");
         else
             Console.WriteLine("Final result OK.");
     }
