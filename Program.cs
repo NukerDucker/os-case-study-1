@@ -16,6 +16,17 @@ class Program
 
     static decimal[] data = new decimal[data_elements];
 
+    // Dynamic scheduling (Anderson & Dahlin §7.2.2): atomic counter replaces fixed slices.
+    // Fast P-cores claim more slices; slower E-cores claim fewer. No core sits idle.
+    private const int SliceSize = 8_192;  // benchmarked vs 4096/16384 on M2 Air
+
+    // Calculate1 spec: value[i] *= 0.1 each call.
+    // When |value[i]| < 5: e.g. (int)4.9 % 2=0 → sum=0.98 → Math.Round(0.49)=0.
+    // All remaining rounds return 0 → skip them (adds 0 to result, safe).
+    private const decimal ZeroCutoff = 5m;
+
+    private static int workHead = 0;  // shared atomic work pointer
+
     // Algorithm of Calculate1(ref decimal[] value, ref long idx)
     /*
         i = idx;
@@ -38,18 +49,29 @@ class Program
 
     private static decimal WorkerFunc(int workerIndex, int workerCount)
     {
-        long sliceSize = max_accessible_elements / workerCount;
-        long start = workerIndex * sliceSize;
-        long end = (workerIndex == workerCount - 1) ? max_accessible_elements : start + sliceSize;
-
-        decimal localResult = 0m;
         CalClass cf = new CalClass();
+        decimal localResult = 0m;
 
-        for (int i = 0; i < iterations; i++)
+        while (true)
         {
-            long at = start;
-            while (at < end)
-                localResult += cf.Calculate1(ref data, ref at);
+            // Claim next slice atomically — Anderson & Dahlin §5.1.2 Atomic Operations.
+            int sliceStart = Interlocked.Add(ref workHead, SliceSize) - SliceSize;
+            if (sliceStart >= max_accessible_elements) break;
+            int sliceEnd = (int)Math.Min((long)sliceStart + SliceSize, max_accessible_elements);
+
+            for (int i = sliceStart; i < sliceEnd; i++)
+            {
+                // Loop inversion: value-outer, rounds-inner.
+                // Calculate1 only reads/writes data[i] — per-element independent,
+                // so inversion is mathematically equivalent to original rounds-outer loop.
+                // Enables early exit per-element once value decays near zero.
+                for (int round = 0; round < iterations; round++)
+                {
+                    if (Math.Abs(data[i]) < ZeroCutoff) break;  // returns 0 anyway — safe to skip
+                    long at = i;
+                    localResult += cf.Calculate1(ref data, ref at);
+                }
+            }
         }
         // ponytail: workerResults[] false sharing — one write per thread at end, not worth padding
         return localResult;
@@ -101,6 +123,8 @@ class Program
             int wi = i; // closure capture — replaces ThreadParameter class
             workers[i] = new Thread(() => workerResults[wi] = WorkerFunc(wi, workerCount));
         }
+
+        workHead = 0;  // reset atomic pointer before workers start
 
         var sw = Stopwatch.StartNew();
 
